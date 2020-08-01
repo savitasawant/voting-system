@@ -1,0 +1,36 @@
+<div class="login-wrapper" fxLayout="row">
+
+  <div fxLayout="column" fxLayoutAlign="start center" fxFlex>
+    <mat-card class="login-card mat-elevation-z8">
+      <!-- <mat-card-title class="m-30">  </mat-card-title>
+      <mat-divider></mat-divider> -->
+      <mat-card-content class="pt-20 pb-20">
+        <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+          <div class="mv-20">
+            <mat-form-field class="font-size-14">
+              <input type="email" matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+          </div>
+
+          <div class="mv-20 font-size-14">
+            <mat-form-field>
+              <input [type]="showPassword ? 'text' : 'password'" matInput placeholder="Password" formControlName="password">
+              <mat-icon matSuffix class="pointer" (click)="togglePassword()"> {{showPassword ? 'visibility_off' : 'visibility'}} </mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="mb-10" class="font-size-14 red-fg">
+              {{ loginError }}
+          </div>
+          <div class="mt-20 mb-10">
+            <button class="full-width login-button" mat-raised-button type="submit" mat-button [disabled]="loginApiCall">LOGIN</button>
+          </div>
+
+          <div class="text-center pt-10" *ngIf="loginApiCall">
+            <mat-spinner diameter="25" ></mat-spinner>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
