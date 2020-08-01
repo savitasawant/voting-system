@@ -1,1 +1,59 @@
-<p>voting-from works!</p>
+
+<div *ngIf="!isLoading && !message">
+  <form [formGroup]="votingForm" fxLayout="column" fxFlex="100">
+
+    <div fxLayout="column" >
+      <div fxLayout="column">
+        <div fxLayout="row" fxFlex="50" fxLayoutGap="20px">
+          <!-- name -->
+          <mat-form-field fxFlex="50" class="mv-10">
+            <mat-label>Name *</mat-label>
+            <input type="text" matInput formControlName="name" placeholder="Name" />
+            <mat-error *ngIf="votingForm.get('name').errors?.required">
+              Name is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxFlex="50" fxLayoutGap="20px">
+          <!-- email -->
+          <mat-form-field fxFlex="50" class="mv-10">
+            <mat-label>Email *</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Email" />
+            <mat-error *ngIf="votingForm.get('email').errors?.required">
+              Email is required.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- sub app array -->
+      <div class="sub-box" formArrayName="votes" *ngFor="let item of getVotes().controls; let i = index; let last = last;" >
+        <div [formGroupName]="i" >
+          <div fxLayout="row" fxLayoutGap="20px" class="mb-10">
+            <div>
+              {{electionData[i].name}}
+              <!-- <input type="test" formControlName="position"> -->
+            </div>
+            <div>
+              <label *ngFor="let candidate of electionData[i].candidates">
+                <input type="radio" [value]="candidate._id" formControlName="selected_candidate">
+                  <span>{{candidate.name}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button mat-button matBadge="8" matBadgePosition="before" matBadgeColor="primary" class="add-btn" (click)="submitVote(votingForm)" [disabled]="isDisabled">
+      Submit
+    </button>
+
+  </form>
+</div>
+
+<div *ngIf="message">
+  {{message}}
+</div>
+

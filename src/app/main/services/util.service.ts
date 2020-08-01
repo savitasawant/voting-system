@@ -27,6 +27,14 @@ export class UtilService {
   constructor(public http: HttpClient, private router: Router) {
   }
 
+  public getElectionList(){
+    return this.http.get(this.domain + 'positions');
+  }
+
+  public createVote(payload){
+    return this.http.post(this.domain + 'vote', payload);
+  }
+
   setLayout(user_authenticated){
     this.layout.showToolbar = user_authenticated;
     this.layout.showNavbar = user_authenticated;
