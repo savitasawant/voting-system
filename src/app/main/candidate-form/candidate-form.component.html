@@ -1,1 +1,56 @@
-<p>candidate-form works!</p>
+
+<div *ngIf="displayForm && !isLoading">
+
+    <div fxLayout="column">
+        <mat-form-field>
+            <mat-label class="primary-fg">Start Date</mat-label>
+            <input matInput [(ngModel)]="electionDate.start_date" [matDatepicker]="start_date" [max]="electionDate.expiry_date">
+            <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+            <mat-datepicker #start_date></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="column">
+        <mat-form-field>
+            <mat-label class="primary-fg">End Date</mat-label>
+            <input matInput [(ngModel)]="electionDate.expiry_date" [matDatepicker]="end_date" [min]="electionDate.start_date">
+            <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
+            <mat-datepicker #end_date></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div>
+      <button (click)="submitDate(electionDate)" [disabled]="isDisabled">
+        Submit
+      </button>
+    </div>
+</div>
+
+<div>
+  <div fxFlex="100" fxLayout="row wrap" *ngIf="!displayForm && !isLoading">
+    <div class="w-300 m-20" *ngFor="let item of electionData">
+      <mat-card >
+        <div fxLayout="row" fxLayoutAlign="space-between" class="pb-5">
+          <div fxLayoutAlign="start" fxFlex class="font-size-18 font-weight-bold text-uppercase">
+              {{item.name}}
+          </div>
+          <!-- <div fxLayoutAlign="end" fxFlex>
+              <mat-icon class="pointer font-size-18 fg-4a4a4a" (click)="editAppModal(app)">edit</mat-icon>
+          </div> -->
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="pt-10 ph-10" >
+          <div class="pv-5 font-size-18" fxLayoutAlign="start" *ngFor="let candidates of item.candidates">
+
+            <div class="text-capitalize"> {{candidates.name}} </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading">
+  Loading data ...
+</div>

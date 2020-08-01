@@ -16,6 +16,7 @@ export class VotingFromComponent implements OnInit {
   votingForm : FormGroup;
   isDisabled: boolean = false;
   message: any;
+
   constructor(public utilService: UtilService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {

@@ -1,8 +1,8 @@
 <div fxLayout="row wrap" fxFlex="100">
   <div fxFlex="100">
-    <!-- <app-toolbar *ngIf="utilService.layout.showToolbar"></app-toolbar> -->
-    <!-- <div [ngClass]="{'mt-80' : utilService.layout.showToolbar}"> -->
+    <app-toolbar *ngIf="utilService.layout.showToolbar"></app-toolbar>
+    <div [ngClass]="{'mt-80' : utilService.layout.showToolbar}">
       <router-outlet></router-outlet>
-    <!-- </div> -->
+    </div>
   </div>
 </div>

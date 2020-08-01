@@ -14,10 +14,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './main/authentication/auth.service';
 import { UtilService } from './main/services/util.service';
 import { TokenInterceptor } from './main/authentication/token.interceptor';
+import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ToolbarComponent
   ],
   imports: [
     // BrowserModule,

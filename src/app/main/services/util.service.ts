@@ -35,6 +35,14 @@ export class UtilService {
     return this.http.post(this.domain + 'vote', payload);
   }
 
+  public getElectionTime(){
+    return this.http.get(this.domain + 'api/dates');
+  }
+
+  public postElectionTime(payload){
+    return this.http.post(this.domain + 'api/dates', payload);
+  }
+
   setLayout(user_authenticated){
     this.layout.showToolbar = user_authenticated;
     this.layout.showNavbar = user_authenticated;
