@@ -1,41 +1,14 @@
 
-<div *ngIf="displayForm && !isLoading">
 
-    <div fxLayout="column">
-        <mat-form-field>
-            <mat-label class="primary-fg">Start Date</mat-label>
-            <input matInput [(ngModel)]="electionDate.start_date" [matDatepicker]="start_date" [max]="electionDate.expiry_date">
-            <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
-            <mat-datepicker #start_date></mat-datepicker>
-        </mat-form-field>
-    </div>
-
-    <div fxLayout="column">
-        <mat-form-field>
-            <mat-label class="primary-fg">End Date</mat-label>
-            <input matInput [(ngModel)]="electionDate.expiry_date" [matDatepicker]="end_date" [min]="electionDate.start_date">
-            <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
-            <mat-datepicker #end_date></mat-datepicker>
-        </mat-form-field>
-    </div>
-    <div>
-      <button (click)="submitDate(electionDate)" [disabled]="isDisabled">
-        Submit
-      </button>
-    </div>
-</div>
-
-<div>
-  <div fxFlex="100" fxLayout="row wrap" *ngIf="!displayForm && !isLoading">
+<div fxFlex fxLayout="row wrap" *ngIf="displayForm && !isLoading">
+  <div class="font-size-18">  Position and candidates </div>
+  <div fxFlex="100" fxLayout="row wrap" >
     <div class="w-300 m-20" *ngFor="let item of electionData">
       <mat-card >
         <div fxLayout="row" fxLayoutAlign="space-between" class="pb-5">
           <div fxLayoutAlign="start" fxFlex class="font-size-18 font-weight-bold text-uppercase">
               {{item.name}}
           </div>
-          <!-- <div fxLayoutAlign="end" fxFlex>
-              <mat-icon class="pointer font-size-18 fg-4a4a4a" (click)="editAppModal(app)">edit</mat-icon>
-          </div> -->
         </div>
 
         <mat-divider></mat-divider>
@@ -44,13 +17,52 @@
           <div class="pv-5 font-size-18" fxLayoutAlign="start" *ngFor="let candidates of item.candidates">
 
             <div class="text-capitalize"> {{candidates.name}} </div>
+            <div class="ph-20" *ngIf="showResult">{{candidates.total_vote}}</div>
           </div>
         </div>
       </mat-card>
     </div>
   </div>
+
+
+  <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50" *ngIf="!showResult">
+    <div class="election-date-box">
+      <div class="pb-20 font-size-18 font-weight-600"> Election Date </div>
+      <div>
+        <div fxLayout="column">
+            <mat-form-field>
+                <mat-label class="primary-fg">Start Date</mat-label>
+                <input matInput [(ngModel)]="electionDate.start_date" [matDatepicker]="start_date" [max]="electionDate.expiry_date">
+                <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+                <mat-datepicker #start_date></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="column">
+            <mat-form-field>
+                <mat-label class="primary-fg">End Date</mat-label>
+                <input matInput [(ngModel)]="electionDate.expiry_date" [matDatepicker]="end_date" [min]="electionDate.start_date">
+                <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
+                <mat-datepicker #end_date></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="column" class="pt-20">
+          <button mat-button matBadge="8" matBadgePosition="before" matBadgeColor="primary" class="apply-btn" (click)="submitDate(electionDate)" [disabled]="isDisabled">
+            <span>Submit</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="isLoading">
+
+
+<div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50 font-size-18"  *ngIf="!displayForm && !isLoading">
+  Result will display after {{electionTime.expiry_date | date:'dd-MM-yyyy'}}
+</div>
+
+<div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50 font-size-18"  *ngIf="isLoading">
   Loading data ...
 </div>

@@ -121,6 +121,12 @@ body { margin: 0; font-family: 'Lato', sans-serif; }
     min-width: 400px;
 }
 
+.width-500, .w-500{
+  width: 500px;
+  max-width: 500px;
+  min-width: 500px;
+}
+
 .full-height{
     height: 100vh;
 }

@@ -20,10 +20,13 @@ export class CandidateFormComponent implements OnInit {
   today: any = new Date();
   electionDate: any = null;
   isDisabled : boolean = false;
+  showResult: boolean = false;
 
   constructor( public utilService: UtilService, private formBuilder: FormBuilder ) { }
 
   ngOnInit() {
+    this.showResult = false;
+    this.isLoading = true;
     this.electionDate = {
       start_date : null,
       expiry_date: null
@@ -42,16 +45,19 @@ export class CandidateFormComponent implements OnInit {
         let expiry_date = new Date(this.electionTime.expiry_date);
 
         if (start_date.getTime() < this.today.getTime() && this.today.getTime() < expiry_date.getTime()) {
-          this.getElectionList();
           this.displayForm = false;
+          this.isLoading = false;
+        }else if(this.today.getTime() > expiry_date.getTime()){
+          this.showResult = true;
+          this.getElectionList();
         }
         else{
+          this.getElectionList();
           this.displayForm = true;
-          this.isLoading = false;
         }
       }else{
+        this.getElectionList();
         this.displayForm = true;
-        this.isLoading = false;
       }
 
     },

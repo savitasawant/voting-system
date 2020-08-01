@@ -1,0 +1,24 @@
+#voting-form{
+  // text-align: center;
+  .submit-btn{
+    border-radius: 5px !important;
+    color: white;
+    min-width: 108px !important;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #1a73e8 !important;
+    padding: 5px 16px !important;
+    background: #1a73e8;
+  }
+
+
+  .example-radio-group {
+    display: flex;
+    flex-direction: column;
+    // margin: 15px 0;
+  }
+
+  .example-radio-button {
+    margin: 10px;
+  }
+}

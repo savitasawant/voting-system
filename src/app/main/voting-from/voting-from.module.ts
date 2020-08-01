@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 /* Angular material */
 import { AngularMaterialModule } from './../../angular-material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { VotingFromComponent } from './voting-from.component';
@@ -25,6 +26,7 @@ const routes = [
     ],
   imports: [
     AngularMaterialModule,
+    FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
