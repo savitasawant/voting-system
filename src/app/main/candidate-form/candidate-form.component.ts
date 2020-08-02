@@ -130,4 +130,7 @@ export class CandidateFormComponent implements OnInit {
     });
   }
 
+  addPosition(){
+
+  }
 }

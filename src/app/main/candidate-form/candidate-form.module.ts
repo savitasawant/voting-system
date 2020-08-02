@@ -10,6 +10,10 @@ import { CommonModule } from '@angular/common';
 import { AuthGuardService as AuthGuard } from './../authentication/auth.guard.service';
 import { CandidateFormComponent } from './candidate-form.component';
 import { UtilService } from '../services/util.service';
+import {
+  OwlDateTimeModule,
+  OwlNativeDateTimeModule
+} from 'ng-pick-datetime';
 
 const routes = [
     {
@@ -18,6 +22,8 @@ const routes = [
         canActivate: [AuthGuard]
     }
 ];
+
+
 
 @NgModule({
   declarations: [
@@ -28,6 +34,8 @@ const routes = [
     FlexLayoutModule,
     FormsModule,
     CommonModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule
   ],

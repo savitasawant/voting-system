@@ -1,7 +1,7 @@
 
 
 <div fxFlex fxLayout="row wrap" *ngIf="(displayForm || showResult) && !isLoading">
-  <div class="font-size-18">  Position and candidates </div>
+  <div class="font-size-18" *ngIf="electionData.length">  Position and candidates </div>
   <div fxFlex="100" fxLayout="row wrap" >
     <div class="w-300 m-20" *ngFor="let item of electionData">
       <mat-card >
@@ -24,27 +24,32 @@
     </div>
   </div>
 
+  <!-- <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50" *ngIf="!showResult">
+    <button mat-button matBadge="8" matBadgePosition="before" matBadgeColor="primary" class="apply-btn" (click)="addPosition()" [disabled]="isDisabled">
+      <span>Add Position</span>
+    </button>
+  </div> -->
+
+
 
   <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50" *ngIf="!showResult">
     <div class="election-date-box">
       <div class="pb-20 font-size-18 font-weight-600"> Election Date </div>
       <div>
         <div fxLayout="column">
-            <mat-form-field>
-                <mat-label class="primary-fg">Start Date</mat-label>
-                <input matInput [(ngModel)]="electionDate.start_date" [matDatepicker]="start_date" [max]="electionDate.expiry_date">
-                <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
-                <mat-datepicker #start_date></mat-datepicker>
-            </mat-form-field>
+          <!-- <mat-form-field> -->
+            <div class="primary-fg font-size-16 pv-10">Start Date</div>
+            <input [owlDateTime]="start_date" [(ngModel)]="electionDate.start_date" [owlDateTimeTrigger]="start_date" placeholder="Date Time">
+            <owl-date-time #start_date></owl-date-time>
+          <!-- </mat-form-field> -->
         </div>
 
         <div fxLayout="column">
-            <mat-form-field>
-                <mat-label class="primary-fg">End Date</mat-label>
-                <input matInput [(ngModel)]="electionDate.expiry_date" [matDatepicker]="end_date" [min]="electionDate.start_date">
-                <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
-                <mat-datepicker #end_date></mat-datepicker>
-            </mat-form-field>
+          <!-- <mat-form-field> -->
+            <div class="primary-fg font-size-16 pv-10">End Date</div>
+            <input [owlDateTime]="expiry_date" [(ngModel)]="electionDate.expiry_date" [owlDateTimeTrigger]="expiry_date" placeholder="Date Time">
+            <owl-date-time #expiry_date></owl-date-time>
+          <!-- </mat-form-field> -->
         </div>
 
         <div fxLayout="column" class="pt-20">
