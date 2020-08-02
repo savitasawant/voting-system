@@ -22,8 +22,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
     request = request.clone({
       setHeaders: {
-        Authorization: `token ${this.auth.authToken}`,
-        'referer-domain': hostName
+        Authorization: `token ${this.auth.authToken}`
+        // 'referer-domain': hostName
       }
     });
     return next.handle(request).pipe(
