@@ -16,7 +16,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     let hostName = window.location.hostname.replace('http://', '').replace('https://', '').replace('www.', '').split(/[/?#]/)[0];
     hostName = ((hostName.indexOf('localhost')) > -1 || (hostName.indexOf('192.168')) > -1 ||
-    (hostName.indexOf('35.154') > -1)) ? this.localHostName : hostName;
+    (hostName.indexOf('3.129.12.90') > -1)) ? this.localHostName : hostName;
 
     this.auth.loadToken();
 
