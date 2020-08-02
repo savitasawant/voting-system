@@ -1,6 +1,6 @@
 
 
-<div fxFlex fxLayout="row wrap" *ngIf="displayForm && !isLoading">
+<div fxFlex fxLayout="row wrap" *ngIf="(displayForm || showResult) && !isLoading">
   <div class="font-size-18">  Position and candidates </div>
   <div fxFlex="100" fxLayout="row wrap" >
     <div class="w-300 m-20" *ngFor="let item of electionData">
@@ -48,8 +48,12 @@
         </div>
 
         <div fxLayout="column" class="pt-20">
-          <button mat-button matBadge="8" matBadgePosition="before" matBadgeColor="primary" class="apply-btn" (click)="submitDate(electionDate)" [disabled]="isDisabled">
+          <button mat-button matBadge="8" matBadgePosition="before" matBadgeColor="primary" class="apply-btn" (click)="submitDate(electionDate)" [disabled]="isDisabled" *ngIf="!changeTime">
             <span>Submit</span>
+          </button>
+
+          <button mat-button matBadge="8" matBadgePosition="before" matBadgeColor="primary" class="apply-btn" (click)="UpdateDate(electionDate)" [disabled]="isDisabled" *ngIf="changeTime">
+            <span>Change</span>
           </button>
         </div>
       </div>
@@ -59,7 +63,7 @@
 
 
 
-<div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50 font-size-18"  *ngIf="!displayForm && !isLoading">
+<div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50 font-size-18"  *ngIf="!displayForm && !showResult && !isLoading">
   Result will display after {{electionTime.expiry_date | date:'dd-MM-yyyy'}}
 </div>
 

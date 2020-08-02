@@ -17,10 +17,15 @@ export class VotingFromComponent implements OnInit {
   isDisabled: boolean = false;
   message: any;
 
+  isVotingStart : boolean = false;
+  today: any = new Date();
+  electionTime: any = null;
+  showResult: boolean = false;
+
   constructor(public utilService: UtilService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-
+    this.getElectionTime();
     if( localStorage.getItem('voting')){
       this.message = localStorage.getItem('voting');
     }else{
@@ -100,6 +105,35 @@ export class VotingFromComponent implements OnInit {
       });
     }
 
+  }
+
+  getElectionTime(){
+    this.utilService.getElectionTime().subscribe(data => {
+      this.response = data;
+      this.electionTime = this.response.data.length ? this.response.data[0] : null;
+
+      if(this.electionTime){
+
+        let start_date = new Date(this.electionTime.start_date);
+        let expiry_date = new Date(this.electionTime.expiry_date);
+
+        if (start_date.getTime() < this.today.getTime() && this.today.getTime() < expiry_date.getTime()) {
+          this.isVotingStart = true;
+        }else if(this.today.getTime() > expiry_date.getTime()){
+          this.showResult = true;
+        }
+        else{
+          this.isVotingStart = false;
+        }
+      }else{
+        this.isVotingStart = false;
+      }
+
+    },
+    err => {
+      this.error = err;
+      console.error(this.error);
+    });
   }
 
 }

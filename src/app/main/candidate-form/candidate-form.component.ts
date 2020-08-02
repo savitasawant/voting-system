@@ -16,11 +16,11 @@ export class CandidateFormComponent implements OnInit {
   isLoading: boolean;
   electionData: any[] = [];
   electionTime: any = null;
-  dateTimeForm: FormGroup;
   today: any = new Date();
   electionDate: any = null;
   isDisabled : boolean = false;
   showResult: boolean = false;
+  changeTime: boolean = false;
 
   constructor( public utilService: UtilService, private formBuilder: FormBuilder ) { }
 
@@ -40,6 +40,9 @@ export class CandidateFormComponent implements OnInit {
       this.electionTime = this.response.data.length ? this.response.data[0] : null;
 
       if(this.electionTime){
+        this.changeTime = true;
+        this.electionDate.start_date = this.electionTime.start_date;
+        this.electionDate.expiry_date = this.electionTime.expiry_date;
 
         let start_date = new Date(this.electionTime.start_date);
         let expiry_date = new Date(this.electionTime.expiry_date);
@@ -94,6 +97,28 @@ export class CandidateFormComponent implements OnInit {
       data : element
     }
     this.utilService.postElectionTime(payload).subscribe(data => {
+      this.response = data;
+      this.isDisabled = false;
+      window.location.reload();
+    },
+    err => {
+      this.error = err;
+      this.isDisabled = false;
+      console.error(this.error);
+    });
+  }
+
+  UpdateDate(element){
+    if (!element.start_date || !element.expiry_date) {
+      alert('Please select start and end date.');
+      return;
+    }
+
+    this.isDisabled = true;
+    let payload = {
+      data : element
+    }
+    this.utilService.putElectionTime(this.electionTime._id, payload).subscribe(data => {
       this.response = data;
       this.isDisabled = false;
       window.location.reload();

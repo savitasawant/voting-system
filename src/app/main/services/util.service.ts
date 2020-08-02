@@ -36,11 +36,15 @@ export class UtilService {
   }
 
   public getElectionTime(){
-    return this.http.get(this.domain + 'api/dates');
+    return this.http.get(this.domain + 'dates');
   }
 
   public postElectionTime(payload){
     return this.http.post(this.domain + 'api/dates', payload);
+  }
+
+  public putElectionTime(id, payload){
+    return this.http.put(this.domain + 'api/dates/'+id, payload);
   }
 
   setLayout(user_authenticated){

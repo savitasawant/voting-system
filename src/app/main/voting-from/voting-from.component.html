@@ -1,67 +1,73 @@
 
 <div id="voting-form">
+  <div *ngIf="isVotingStart">
+    <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" *ngIf="!isLoading && !message">
+      <div class="font-size-25 font-weight-600 mt-20 mb-10">Voting Form </div>
+      <div class="w-500 m-20" >
+        <mat-card >
+          <form [formGroup]="votingForm" fxLayout="column" fxFlex="100">
+            <div fxLayout="column" >
+              <div fxLayout="column">
+                <!-- Name -->
+                <mat-form-field fxFlex="100" class="mv-10">
+                  <mat-label>Name *</mat-label>
+                  <input type="text" matInput formControlName="name" placeholder="Name" />
+                  <mat-error *ngIf="votingForm.get('name').errors?.required">
+                    Name is required.
+                  </mat-error>
+                </mat-form-field>
 
-<div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" *ngIf="!isLoading && !message">
-  <div class="font-size-25 font-weight-600 mt-20 mb-10">Voting Form </div>
-  <div class="w-500 m-20" >
-    <mat-card >
-      <form [formGroup]="votingForm" fxLayout="column" fxFlex="100">
-        <div fxLayout="column" >
-          <div fxLayout="column">
-            <!-- Name -->
-            <mat-form-field fxFlex="100" class="mv-10">
-              <mat-label>Name *</mat-label>
-              <input type="text" matInput formControlName="name" placeholder="Name" />
-              <mat-error *ngIf="votingForm.get('name').errors?.required">
-                Name is required.
-              </mat-error>
-            </mat-form-field>
-
-            <!-- Email -->
-            <mat-form-field fxFlex="100" class="mv-10">
-              <mat-label>Email *</mat-label>
-              <input type="email" matInput formControlName="email" placeholder="Email" />
-              <mat-error *ngIf="votingForm.get('email').errors?.required">
-                Email is required.
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <!-- position -->
-          <div class="sub-box" formArrayName="votes" *ngFor="let item of getVotes().controls; let i = index; let last = last;" >
-            <div [formGroupName]="i" >
-              <div fxLayout="column" fxLayoutGap="20px" class="mv-20">
-
-                <label id="example-radio-group-label" class="text-capitalize"> {{i+1}}. {{electionData[i].name}} </label>
-                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="selected_candidate">
-                  <mat-radio-button class="example-radio-button" *ngFor="let candidate of electionData[i].candidates" [value]="candidate._id">
-                    <span class="text-capitalize">  {{candidate.name}} </span>
-                  </mat-radio-button>
-
-                  <!-- <mat-error *ngIf="item.get('selected_candidate').errors?.required">
-                    Please select candidate.
-                  </mat-error> -->
-                </mat-radio-group>
-
+                <!-- Email -->
+                <mat-form-field fxFlex="100" class="mv-10">
+                  <mat-label>Email *</mat-label>
+                  <input type="email" matInput formControlName="email" placeholder="Email" />
+                  <mat-error *ngIf="votingForm.get('email').errors?.required">
+                    Email is required.
+                  </mat-error>
+                </mat-form-field>
               </div>
-              <mat-divider></mat-divider>
+
+              <!-- position -->
+              <div class="sub-box" formArrayName="votes" *ngFor="let item of getVotes().controls; let i = index; let last = last;" >
+                <div [formGroupName]="i" >
+                  <div fxLayout="column" fxLayoutGap="20px" class="mv-20">
+
+                    <label id="example-radio-group-label" class="text-capitalize"> {{i+1}}. {{electionData[i].name}} </label>
+                    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="selected_candidate">
+                      <mat-radio-button class="example-radio-button" *ngFor="let candidate of electionData[i].candidates" [value]="candidate._id">
+                        <span class="text-capitalize">  {{candidate.name}} </span>
+                      </mat-radio-button>
+
+                      <!-- <mat-error *ngIf="item.get('selected_candidate').errors?.required">
+                        Please select candidate.
+                      </mat-error> -->
+                    </mat-radio-group>
+
+                  </div>
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div fxLayout="column" class="mv-20">
-          <button mat-button matBadge="8" matBadgePosition="before" matBadgeColor="primary" class="submit-btn" (click)="submitVote(votingForm)" [disabled]="isDisabled">
-            Submit
-          </button>
-        </div>
+            <div fxLayout="column" class="mv-20">
+              <button mat-button matBadge="8" matBadgePosition="before" matBadgeColor="primary" class="submit-btn" (click)="submitVote(votingForm)" [disabled]="isDisabled">
+                Submit
+              </button>
+            </div>
 
-      </form>
-    </mat-card>
+          </form>
+        </mat-card>
+      </div>
+    </div>
+
+    <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50 font-size-25" *ngIf="message">
+      {{message}}
+    </div>
   </div>
-</div>
 
-<div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50 font-size-25" *ngIf="message">
-  {{message}}
-</div>
+
+  <div fxFlex fxLayout="column wrap" fxLayoutAlign="center center" class="mt-50 font-size-18" *ngIf="!isVotingStart">
+    Page not Available..
+  </div>
 
 </div>
