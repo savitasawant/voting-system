@@ -14,6 +14,7 @@ import {
   OwlDateTimeModule,
   OwlNativeDateTimeModule
 } from 'ng-pick-datetime';
+import { PositionFormComponent } from './position-form/position-form.component';
 
 const routes = [
     {
@@ -27,7 +28,8 @@ const routes = [
 
 @NgModule({
   declarations: [
-    CandidateFormComponent
+    CandidateFormComponent,
+    PositionFormComponent
     ],
   imports: [
     AngularMaterialModule,

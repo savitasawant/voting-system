@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UtilService } from '../services/util.service';
 import { FormBuilder, Validators, FormGroup,FormArray } from '@angular/forms';
 import {FormControl} from '@angular/forms';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { PositionFormComponent } from './position-form/position-form.component';
 
 @Component({
   selector: 'app-candidate-form',
@@ -22,7 +24,7 @@ export class CandidateFormComponent implements OnInit {
   showResult: boolean = false;
   changeTime: boolean = false;
 
-  constructor( public utilService: UtilService, private formBuilder: FormBuilder ) { }
+  constructor( public utilService: UtilService, private formBuilder: FormBuilder, private matDialog: MatDialog ) { }
 
   ngOnInit() {
     this.showResult = false;
@@ -130,7 +132,56 @@ export class CandidateFormComponent implements OnInit {
     });
   }
 
+  // create new data
   addPosition(){
 
+    let payload = {
+        // "data":{
+        //     "name" : "Joint Treasurer सह-खजिनदार",
+        //     "candidates" : [
+        //         {
+        //             "name": "अजय जाधव",
+        //             "total_vote": 0,
+        //             "age": 0,
+        //             "phone": null,
+        //             "email": null
+        //         },
+        //         {
+        //             "name": "विजय खारकर",
+        //             "total_vote": 0,
+        //             "age": 0,
+        //             "phone": null,
+        //             "email": null
+        //         }
+        //     ]
+        // }
+    };
+
+    this.utilService.postElectionList(payload).subscribe(data => {
+      window.location.reload();
+    },
+    err => {
+      this.error = err;
+      console.error(this.error);
+      this.isLoading = false;
+    });
+
+    // const dialogConfig = new MatDialogConfig();
+    // dialogConfig.data = {
+    //   // appDetails : this.appDetails,
+    //   // isEditModal : this.isEditModal,
+    //   // permissionList : this.permissionList
+    // },
+    // dialogConfig.disableClose = true;
+    // let dialogRef = this.matDialog.open(PositionFormComponent, dialogConfig);
+
+    // dialogRef.afterClosed().subscribe(
+    //     data => {
+    //       if(data == 'success'){
+    //         // this.getAppList();
+    //         // this.appList.unshift(dialogConfig.data.appDetails);
+    //       }
+    //     }
+    // );
   }
 }

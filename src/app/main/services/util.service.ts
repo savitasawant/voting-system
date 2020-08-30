@@ -27,6 +27,10 @@ export class UtilService {
   constructor(public http: HttpClient, private router: Router) {
   }
 
+  public postElectionList(payload){
+    return this.http.post(this.domain + 'api/position', payload);
+  }
+
   public getElectionList(){
     return this.http.get(this.domain + 'positions');
   }
