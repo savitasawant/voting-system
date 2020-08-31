@@ -25,7 +25,7 @@ export class UtilService {
   }
 
   public getElectionList(){
-    return this.http.get(API_URL + 'node/positions');
+    return this.http.get(API_URL + 'node/positions', {responseType: 'text'});
   }
 
   public createVote(payload){
@@ -33,7 +33,7 @@ export class UtilService {
   }
 
   public getElectionTime(){
-    return this.http.get(API_URL + 'node/dates');
+    return this.http.get(API_URL + 'node/dates',{ responseType: 'text' });
   }
 
   public postElectionTime(payload){

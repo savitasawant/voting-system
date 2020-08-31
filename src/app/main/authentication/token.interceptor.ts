@@ -2,28 +2,29 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
-import { localHostName } from './../../../global.variables';
+import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+const API_URL = environment.apiUrl;
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  localHostName = localHostName.toString();
+  localHostName = API_URL.toString();
   constructor(public auth: AuthService, private snackBar: MatSnackBar) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    let hostName = window.location.hostname.replace('http://', '').replace('https://', '').replace('www.', '').split(/[/?#]/)[0];
-    hostName = ((hostName.indexOf('localhost')) > -1 || (hostName.indexOf('192.168')) > -1 ||
-    (hostName.indexOf('35.154') > -1)) ? this.localHostName : hostName;
+    let hostName = this.localHostName;
 
     this.auth.loadToken();
 
     request = request.clone({
       setHeaders: {
-        Authorization: `token ${this.auth.authToken}`,
-        'referer-domain': hostName
+        'Authorization': `token ${this.auth.authToken}`,
+        'referer-domain': hostName,
+        'Content-Type': 'application/json',
+        'responseType': 'text'
       }
     });
     return next.handle(request).pipe(
