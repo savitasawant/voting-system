@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { url } from './../../../global.variables';
 import { Router } from '@angular/router';
 import { UtilService } from './../services/util.service';
+import { environment } from '../../../environments/environment';
 
+const API_URL = environment.apiUrl;
 @Injectable()
 export class AuthService {
 
-  domain = url.toString(); // Development Domain - Not Needed in Production
   authToken;
   user;
   options;
@@ -28,11 +28,11 @@ export class AuthService {
   }
 
   login(user) {
-    return this.http.post(this.domain + 'login', user);
+    return this.http.post(API_URL + 'node/login', user);
   }
 
   register(payload) {
-    return this.http.post(this.domain + 'register-shipper', payload);
+    return this.http.post(API_URL + 'register-shipper', payload);
   }
 
   logout() {

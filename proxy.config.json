@@ -1,8 +1,11 @@
 {
-  "/api/*":{
+  "/node/*":{
     "target": "http://3.131.151.238",
     "secure": false,
+    "logLevel": "debug",
     "changeOrigin": true,
-    "logLevel": "debug"
+    "pathRewrite": {
+      "^/api":""
+     }
   }
 }

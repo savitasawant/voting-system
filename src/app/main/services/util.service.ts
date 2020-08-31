@@ -1,18 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { url } from './../../../global.variables';
+import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
-// import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-// import { ComponentPortal } from '@angular/cdk/portal';
-// import { ProgressSpinnerComponent } from './../../layout/progress-spinner/progress-spinner.component';
-// import { SupportedFile, Vendor, Subvendor, InclusionList, fieFilterObj } from './../interfaces';
-
-
+const API_URL = environment.apiUrl;
 @Injectable()
 export class UtilService {
-
-  domain = url.toString();
 
   layout = {
     showNavbar: false,
@@ -28,27 +21,27 @@ export class UtilService {
   }
 
   public postElectionList(payload){
-    return this.http.post(this.domain + 'api/position', payload);
+    return this.http.post(API_URL + 'node/api/position', payload);
   }
 
   public getElectionList(){
-    return this.http.get(this.domain + 'positions');
+    return this.http.get(API_URL + 'node/positions');
   }
 
   public createVote(payload){
-    return this.http.post(this.domain + 'vote', payload);
+    return this.http.post(API_URL + 'node/vote', payload);
   }
 
   public getElectionTime(){
-    return this.http.get(this.domain + 'dates');
+    return this.http.get(API_URL + 'node/dates');
   }
 
   public postElectionTime(payload){
-    return this.http.post(this.domain + 'api/dates', payload);
+    return this.http.post(API_URL + 'node/api/dates', payload);
   }
 
   public putElectionTime(id, payload){
-    return this.http.put(this.domain + 'api/dates/'+id, payload);
+    return this.http.put(API_URL + 'node/api/dates/'+id, payload);
   }
 
   setLayout(user_authenticated){
